@@ -1,6 +1,6 @@
 type SuccessResponse<T> = {
   success: true;
-  data: T;
+  data: T | null;
 };
 
 type ErrorResponse = {

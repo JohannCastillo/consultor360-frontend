@@ -5,13 +5,13 @@ import { Button, Modal, type ModalProps } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface AsyncModalProps extends ModalProps {
-  triggerText: string;
+  trigger: React.ReactElement | string;
   onConfirm: () => Promise<boolean>; // returns true if the operation was successful
   queryKey?: string[];
 }
 
 export default function AsyncModal(props: AsyncModalProps) {
-  const { triggerText, onConfirm, queryKey, ...modalProps } = props;
+  const { trigger, onConfirm, queryKey, ...modalProps } = props;
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const queryClient = useQueryClient();
@@ -42,11 +42,20 @@ export default function AsyncModal(props: AsyncModalProps) {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        {triggerText}
-      </Button>
+      {typeof trigger === "string" ? (
+        <Button type="primary" onClick={showModal}>
+          {trigger}
+        </Button>
+      ) : (
+        React.isValidElement(trigger) &&
+        React.cloneElement(trigger as React.ReactElement, {
+          onClick: showModal,
+        })
+      )}
       <Modal
         {...modalProps}
+        okText={props.okText || "Aceptar"}
+        cancelText={props.cancelText || "Cancelar"}
         open={open}
         onOk={handleOk}
         confirmLoading={confirmLoading}
