@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import { Curso } from "../types";
 import { type FormFieldItem } from "@/types/forms";
 
@@ -5,7 +6,7 @@ export type CreateCursoFieldType = Omit<
   Curso,
   "id" | "fecha_inicio" | "fecha_fin"
 > & {
-  dateRange: [Date, Date];
+  dateRange: [Dayjs, Dayjs];
 };
 
 export const cursoFields: FormFieldItem<CreateCursoFieldType>[] = [

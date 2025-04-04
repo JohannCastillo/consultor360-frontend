@@ -1,20 +1,22 @@
 "use client";
 import React from "react";
 import AsyncModal from "@/components/ui/async-modal";
-import { CURSOS_KEYS, useCreateCurso } from "../queries";
+import { CURSOS_KEYS, useUpdateCurso } from "../queries";
 import AddCursoForm from "../forms/create";
-import { Form } from "antd";
+import { Button, Form } from "antd";
 import type { CreateCursoFieldType } from "../forms/fields";
-import type { CreateCursoDTO } from "../types";
+import type { Curso, UpdateCursoDTO } from "../types";
+import { EditFilled } from "@ant-design/icons";
+import dayjs from "dayjs";
 
-export default function AddCursoModal() {
-  const { mutateAsync, isPending } = useCreateCurso();
+export default function UpdateCursoModal({ curso }: { curso: Curso }) {
+  const { mutateAsync, isPending } = useUpdateCurso();
   const [form] = Form.useForm<CreateCursoFieldType>();
 
   const transformValues = ({
     dateRange,
     ...values
-  }: CreateCursoFieldType): CreateCursoDTO => ({
+  }: CreateCursoFieldType): UpdateCursoDTO => ({
     ...values,
     fecha_fin: dateRange[1].format("YYYY-MM-DD"),
     fecha_inicio: dateRange[0].format("YYYY-MM-DD"),
@@ -23,8 +25,12 @@ export default function AddCursoModal() {
   return (
     <Form.Provider>
       <AsyncModal
-        title="Añadir curso"
-        trigger="Nuevo"
+        title="Actualizar curso"
+        trigger={
+          <Button type="primary" aria-label="Eliminar curso">
+            <EditFilled />
+          </Button>
+        }
         queryKey={CURSOS_KEYS.list}
         onConfirm={async () => {
           try {
@@ -33,7 +39,10 @@ export default function AddCursoModal() {
             await form.validateFields();
 
             const values = transformValues(form.getFieldsValue());
-            const res = await mutateAsync(values);
+            const res = await mutateAsync({
+              id: curso.id,
+              data: values,
+            });
             if (!res.success) {
               // TODO: show error message
               console.log(res.error);
@@ -54,9 +63,11 @@ export default function AddCursoModal() {
           disabled={isPending}
           initialValues={
             {
-              activo: true,
-              descripcion: "",
-              nombre: "",
+              ...curso,
+              dateRange: [
+                dayjs(curso.fecha_inicio, "YYYY-MM-DD"),
+                dayjs(curso.fecha_fin, "YYYY-MM-DD"),
+              ],
             } as CreateCursoFieldType
           }
         />

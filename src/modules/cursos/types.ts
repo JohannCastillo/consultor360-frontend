@@ -12,7 +12,13 @@ export type GetCursosQueryParams = Partial<{
   activo: boolean;
 }>;
 
+// Used for filter in table columns
 export type CursoDataIndex = keyof Curso;
 
 export type CreateCursoDTO = Omit<Curso, "id">;
 export type UpdateCursoDTO = Partial<CreateCursoDTO>;
+
+export type UpdateCursoParams = {
+  id: string;
+  data: UpdateCursoDTO;
+}

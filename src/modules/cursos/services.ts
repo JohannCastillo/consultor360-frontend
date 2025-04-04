@@ -1,7 +1,12 @@
 "use server";
 
 import { fetcher } from "@/lib/fetcher";
-import { CreateCursoDTO, Curso, GetCursosQueryParams } from "./types";
+import {
+  CreateCursoDTO,
+  Curso,
+  GetCursosQueryParams,
+  UpdateCursoParams,
+} from "./types";
 import { ApiResponse } from "@/types/api-response";
 
 export async function getCursos(
@@ -45,24 +50,44 @@ export async function createCurso(
   }
 }
 
-export async function updateCurso(id: string, data: CreateCursoDTO) {
-  const response = await fetcher(`/cursos/${id}`, {
+export async function updateCurso({
+  id,
+  data,
+}: UpdateCursoParams): Promise<ApiResponse<Curso>> {
+  const response = await fetcher(`/cursos/${id}/`, {
     method: "PUT",
     body: JSON.stringify(data),
   });
-  
+
+  const _data = await response.json();
+
   if (!response.ok) {
-    throw new Error("Error al actualizar curso");
+    return {
+      success: false,
+      error: _data,
+    };
   }
-  return response.json();
+
+  return {
+    success: true,
+    data: _data,
+  };
 }
 
-export async function deleteCurso(id: string) {
-  const response = await fetcher(`/cursos/${id}`, {
+export async function deleteCurso(id: string): Promise<ApiResponse<null>> {
+  const response = await fetcher(`/cursos/${id}/`, {
     method: "DELETE",
   });
+
   if (!response.ok) {
-    throw new Error("Error al eliminar curso");
+    return {
+      success: false,
+      error: "Error al eliminar curso",
+    };
   }
-  return response.json();
+
+  return {
+    success: true,
+    data: null,
+  };
 }

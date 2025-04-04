@@ -1,10 +1,13 @@
-import { type TableColumnsType } from "antd";
+import { Space, Tag, type TableProps } from "antd";
 import type { Curso } from "../types";
 import React from "react";
+import UpdateCursoModal from "../modals/update-curso.modal";
+import DeleteCursoModal from "../modals/delete-curso.modal";
 // import { useColumnSearchProps } from "@/hooks/table/filters";
 
-export const useColumns = (): TableColumnsType<Curso> => {
+export const useColumns = (): TableProps<Curso>["columns"] => {
   // const { getColumnSearchProps } = useColumnSearchProps<Curso>();
+  
   const columns = React.useMemo(
     () =>
       [
@@ -47,9 +50,35 @@ export const useColumns = (): TableColumnsType<Curso> => {
           dataIndex: "activo",
           key: "activo",
           width: "20%",
-          render: (value: boolean) => (value ? "Activo" : "Inactivo"),
+          filters: [
+            {
+              text: "Activo",
+              value: true,
+            },
+            {
+              text: "Inactivo",
+              value: false,
+            }
+          ],
+          render: (value: boolean) => (
+            <Tag color={value ? "green" : "red"}>
+              {value ? "Activo" : "Inactivo"}
+            </Tag>
+          ),
         },
-      ] as TableColumnsType<Curso>,
+        {
+          title: "Acciones",
+          key: "actions",
+          render: (_, record) => {
+            return (
+              <Space size={"middle"}>
+                <UpdateCursoModal curso={record} />
+                <DeleteCursoModal curso={record} />
+              </Space>
+            );
+          },
+        },
+      ] as TableProps<Curso>["columns"],
     []
   );
   return columns;
