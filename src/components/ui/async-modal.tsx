@@ -20,7 +20,7 @@ export default function AsyncModal(props: AsyncModalProps) {
     setOpen(true);
   };
 
-  const handleOk = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOk = async () => {
     setConfirmLoading(true);
     const res = await onConfirm();
 
