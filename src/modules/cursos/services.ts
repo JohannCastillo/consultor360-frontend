@@ -12,9 +12,11 @@ import { ApiResponse } from "@/types/api-response";
 export async function getCursos(
   params?: GetCursosQueryParams
 ): Promise<Curso[]> {
-  const response = await fetcher("/cursos", {
+  
+  const response = await fetcher("/consultor/cursos", {
     query: params?.filters || {},
   });
+
   if (!response.ok) {
     throw new Error("Error al obtener cursos");
   }
@@ -25,7 +27,7 @@ export async function createCurso(
   data: CreateCursoDTO
 ): Promise<ApiResponse<Curso>> {
   try {
-    const response = await fetcher("/cursos/", {
+    const response = await fetcher("/consultor/cursos/", {
       method: "POST",
       body: JSON.stringify(data),
     });
@@ -55,7 +57,7 @@ export async function updateCurso({
   id,
   data,
 }: UpdateCursoParams): Promise<ApiResponse<Curso>> {
-  const response = await fetcher(`/cursos/${id}/`, {
+  const response = await fetcher(`/consultor/cursos/${id}/`, {
     method: "PUT",
     body: JSON.stringify(data),
   });
@@ -76,7 +78,7 @@ export async function updateCurso({
 }
 
 export async function deleteCurso(id: string): Promise<ApiResponse<null>> {
-  const response = await fetcher(`/cursos/${id}/`, {
+  const response = await fetcher(`/consultor/cursos/${id}/`, {
     method: "DELETE",
   });
 

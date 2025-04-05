@@ -7,7 +7,7 @@ interface Config {
 }
 
 const defaultConfig: Config = {
-  api_uri: "http://localhost:8080/api",
+  api_uri: "http://localhost:8000/api/v1",
   next_auth_url: "http://localhost:3000",
   environment: "development",
 };
