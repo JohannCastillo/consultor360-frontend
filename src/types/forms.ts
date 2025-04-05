@@ -1,4 +1,4 @@
-import type { FormItemProps } from "antd";
+import type { FormItemProps, InputProps } from "antd";
 
 export type FormFieldType =
   | "text"
@@ -6,8 +6,10 @@ export type FormFieldType =
   | "date-range"
   | "text-area"
   | "number"
-  | "checkbox";
+  | "checkbox"
+  | "password";
 
 export type FormFieldItem<T> = FormItemProps<T> & {
   type: FormFieldType;
+  inputProps?: InputProps;
 };

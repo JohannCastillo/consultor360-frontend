@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Providers from "./providers";
-import AdminLayout from "@/layouts/admin-layout";
 import "./globals.css";
+import Sonner from "@/components/ui/sonner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -17,8 +17,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Prueba técnica | Consultor 360",
-  description:
-    "Prueba técnica Consultor 360",
+  description: "Prueba técnica Consultor 360",
 };
 
 export default function RootLayout({
@@ -32,7 +31,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <AdminLayout>{children}</AdminLayout>
+          {children}
+          <Sonner />
         </Providers>
       </body>
     </html>
