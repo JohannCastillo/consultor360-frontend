@@ -8,8 +8,11 @@ export type Curso = {
 };
 
 export type GetCursosQueryParams = Partial<{
-  nombre: string;
-  activo: boolean;
+  filters: Partial<{
+    nombre: string;
+    descripcion: string;
+    estado: string;
+  }>;
 }>;
 
 // Used for filter in table columns
@@ -21,4 +24,4 @@ export type UpdateCursoDTO = Partial<CreateCursoDTO>;
 export type UpdateCursoParams = {
   id: string;
   data: UpdateCursoDTO;
-}
+};

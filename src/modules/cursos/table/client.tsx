@@ -1,13 +1,31 @@
 "use client";
 import { Table } from "antd";
 import { useCursos } from "../queries";
-import type { Curso } from "../types";
+import type { Curso, GetCursosQueryParams } from "../types";
 import { useColumns } from "./columns";
+import { useTableParams } from "@/hooks/table/use-table-params";
 
-export default function CursoTableClient() {
-  const { data: cursos, isLoading, isFetching, isError } = useCursos();
+export default function CursoTableClient({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[]>;
+}) {
   const columns = useColumns();
-  
+  const { handleFilterChange } = useTableParams<Curso>();
+
+  const {
+    data: cursos,
+    isLoading,
+    isFetching,
+    isError,
+  } = useCursos({
+    filters: {
+      nombre: searchParams.nombre,
+      descripcion: searchParams.descripcion,
+      estado: searchParams.activo,
+    } as GetCursosQueryParams["filters"],
+  });
+
   if (isError) {
     return <div>Error al cargar cursos</div>;
   }
@@ -18,6 +36,9 @@ export default function CursoTableClient() {
       dataSource={cursos}
       loading={isLoading || isFetching}
       rowKey={"id"}
+      onChange={(_, filter, __) => {
+        handleFilterChange({ filter });
+      }}
     />
   );
 }

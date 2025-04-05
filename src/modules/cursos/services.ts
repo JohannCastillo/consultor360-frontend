@@ -12,7 +12,9 @@ import { ApiResponse } from "@/types/api-response";
 export async function getCursos(
   params?: GetCursosQueryParams
 ): Promise<Curso[]> {
-  const response = await fetcher("/cursos");
+  const response = await fetcher("/cursos", {
+    query: params?.filters || {},
+  });
   if (!response.ok) {
     throw new Error("Error al obtener cursos");
   }
@@ -23,7 +25,6 @@ export async function createCurso(
   data: CreateCursoDTO
 ): Promise<ApiResponse<Curso>> {
   try {
-    console.log(data);
     const response = await fetcher("/cursos/", {
       method: "POST",
       body: JSON.stringify(data),

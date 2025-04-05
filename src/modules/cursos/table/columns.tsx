@@ -3,11 +3,12 @@ import type { Curso } from "../types";
 import React from "react";
 import UpdateCursoModal from "../modals/update-curso.modal";
 import DeleteCursoModal from "../modals/delete-curso.modal";
-// import { useColumnSearchProps } from "@/hooks/table/filters";
+import { useColumnTextSearch } from "@/hooks/table/use-column-text-search";
 
 export const useColumns = (): TableProps<Curso>["columns"] => {
-  // const { getColumnSearchProps } = useColumnSearchProps<Curso>();
-  
+  const { getColumnSearchProps } = useColumnTextSearch<Curso>();
+
+
   const columns = React.useMemo(
     () =>
       [
@@ -24,14 +25,14 @@ export const useColumns = (): TableProps<Curso>["columns"] => {
           key: "nombre",
           width: "20%",
           sorter: (a, b) => a.nombre.localeCompare(b.nombre),
-          // ...getColumnSearchProps("nombre"),
+          ...getColumnSearchProps("nombre"),
         },
         {
           title: "Descripción",
           dataIndex: "descripcion",
           key: "descripcion",
           width: "20%",
-          // ...getColumnSearchProps("descripcion"),
+          ...getColumnSearchProps("descripcion"),
         },
         {
           title: "Fecha de inicio",
@@ -53,11 +54,11 @@ export const useColumns = (): TableProps<Curso>["columns"] => {
           filters: [
             {
               text: "Activo",
-              value: true,
+              value: "activo",
             },
             {
               text: "Inactivo",
-              value: false,
+              value: "inactivo",
             }
           ],
           render: (value: boolean) => (
