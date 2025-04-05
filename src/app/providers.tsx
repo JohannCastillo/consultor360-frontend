@@ -4,7 +4,8 @@ import { THEME } from "@/constants/theme";
 import { StyleProvider } from "@ant-design/cssinjs";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ConfigProvider } from "antd";
+import { App, ConfigProvider } from "antd";
+import { SessionProvider } from "next-auth/react";
 
 export default function Providers({
   children,
@@ -18,7 +19,8 @@ export default function Providers({
         <ConfigProvider theme={THEME}>
           {/* Tanstack Query Providers */}
           <QueryClientProvider client={queryClient}>
-            {children}
+            {/* Next Auth Providers */}
+            <SessionProvider>{children}</SessionProvider>
           </QueryClientProvider>
         </ConfigProvider>
       </StyleProvider>
