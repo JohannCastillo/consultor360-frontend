@@ -11,7 +11,7 @@ export const THEME = {
     colorPrimaryActive: "#475e16",
     colorText: "#3A3335",
     colorTextSecondary: "#597615",
-    colorBgContainer: "#fafde8",
+    colorBgContainer: "#fff",
     colorBorder: "#e2f4a2",
     colorBgLayout: "#ded9db",
   },
