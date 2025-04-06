@@ -3,9 +3,10 @@ type SuccessResponse<T> = {
   data: T | null;
 };
 
-type ErrorResponse = {
+export type ErrorResponse = {
   success: false;
   error: string;
+  errorCode?: number;
 };
 
 export type ApiResponse<T> = SuccessResponse<T> | ErrorResponse;

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import AsyncModal from "@/components/ui/async-modal";
 import { CURSOS_KEYS, useUpdateCurso } from "../queries";
 import AddCursoForm from "../forms/create";
@@ -22,55 +22,37 @@ export default function UpdateCursoModal({ curso }: { curso: Curso }) {
     fecha_inicio: dateRange[0].format("YYYY-MM-DD"),
   });
 
+  // reset values
+  useEffect(() => {
+    form.setFieldsValue({
+      ...curso,
+      dateRange: [
+        dayjs(curso.fecha_inicio, "YYYY-MM-DD"),
+        dayjs(curso.fecha_fin, "YYYY-MM-DD"),
+      ],
+    });
+  }, [curso, form]);
+
   return (
     <Form.Provider>
       <AsyncModal
         title="Actualizar curso"
         trigger={
-          <Button type="primary" aria-label="Eliminar curso">
+          <Button type="primary" aria-label="Actualizar curso">
             <EditFilled />
           </Button>
         }
+        form={form}
         queryKey={CURSOS_KEYS.list}
         onConfirm={async () => {
-          try {
-            form.submit();
-
-            await form.validateFields();
-
-            const values = transformValues(form.getFieldsValue());
-            const res = await mutateAsync({
-              id: curso.id,
-              data: values,
-            });
-            if (!res.success) {
-              // TODO: show error message
-              console.log(res.error);
-              return false;
-            }
-
-            form.resetFields();
-
-            return res.success;
-          } catch (error) {
-            console.error(error);
-            return false;
-          }
+          const values = transformValues(form.getFieldsValue());
+          return mutateAsync({
+            id: curso.id,
+            data: values,
+          });
         }}
       >
-        <AddCursoForm
-          form={form}
-          disabled={isPending}
-          initialValues={
-            {
-              ...curso,
-              dateRange: [
-                dayjs(curso.fecha_inicio, "YYYY-MM-DD"),
-                dayjs(curso.fecha_fin, "YYYY-MM-DD"),
-              ],
-            } as CreateCursoFieldType
-          }
-        />
+        <AddCursoForm form={form} disabled={isPending || false} />
       </AsyncModal>
     </Form.Provider>
   );

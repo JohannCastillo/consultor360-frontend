@@ -25,19 +25,7 @@ export default function DeleteCursoModal({
         }
         okButtonProps={{ danger: true }}
         queryKey={CURSOS_KEYS.list}
-        onConfirm={async () => {
-          try {
-            const res = await mutateAsync(curso.id);
-            if (!res.success) {
-              // TODO: show error message
-              console.log(res.error);
-            }
-            return res.success;
-          } catch (error) {
-            console.error(error);
-            return false;
-          }
-        }}
+        onConfirm={async () => mutateAsync(curso.id)}
       >
         ¿Está seguro que quiere eliminar el curso {curso.nombre}?
       </AsyncModal>

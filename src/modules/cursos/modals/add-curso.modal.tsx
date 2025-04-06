@@ -5,7 +5,7 @@ import { CURSOS_KEYS, useCreateCurso } from "../queries";
 import AddCursoForm from "../forms/create";
 import { Form } from "antd";
 import type { CreateCursoFieldType } from "../forms/fields";
-import type { CreateCursoDTO } from "../types";
+import type { CreateCursoDTO, Curso } from "../types";
 
 export default function AddCursoModal() {
   const { mutateAsync, isPending } = useCreateCurso();
@@ -22,36 +22,20 @@ export default function AddCursoModal() {
 
   return (
     <Form.Provider>
-      <AsyncModal
+      <AsyncModal<CreateCursoFieldType, Curso>
         title="Añadir curso"
         trigger="Nuevo"
         queryKey={CURSOS_KEYS.list}
-        onConfirm={async () => {
-          try {
-            form.submit();
-
-            await form.validateFields();
-
-            const values = transformValues(form.getFieldsValue());
-            const res = await mutateAsync(values);
-            if (!res.success) {
-              // TODO: show error message
-              console.log(res.error);
-              return false;
-            }
-
-            form.resetFields();
-
-            return res.success;
-          } catch (error) {
-            console.error(error);
-            return false;
-          }
+        form={form}
+        onConfirm={() => {
+          const transformedValues = transformValues(form.getFieldsValue());
+          return mutateAsync(transformedValues);
         }}
+        afterClose={() => form.resetFields()}
       >
         <AddCursoForm
           form={form}
-          disabled={isPending}
+          disabled={isPending || false}
           initialValues={
             {
               activo: true,

@@ -37,6 +37,7 @@ export async function createCurso(
     if (!response.ok) {
       return {
         success: false,
+        errorCode: response.status,
         error: _data,
       };
     }
@@ -68,6 +69,7 @@ export async function updateCurso({
     return {
       success: false,
       error: _data,
+      errorCode: response.status,
     };
   }
 
@@ -86,6 +88,7 @@ export async function deleteCurso(id: string): Promise<ApiResponse<null>> {
     return {
       success: false,
       error: "Error al eliminar curso",
+      errorCode: response.status,
     };
   }
 
