@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import AsyncModal from "@/components/ui/async-modal";
 import { CURSOS_KEYS, useUpdateCurso } from "../queries";
 import AddCursoForm from "../forms/create";

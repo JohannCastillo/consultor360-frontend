@@ -4,7 +4,7 @@ import { THEME } from "@/constants/theme";
 import { StyleProvider } from "@ant-design/cssinjs";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { App, ConfigProvider } from "antd";
+import { ConfigProvider } from "antd";
 import { SessionProvider } from "next-auth/react";
 
 export default function Providers({

@@ -47,6 +47,7 @@ export async function createCurso(
       data: _data,
     };
   } catch (error) {
+    console.error(error);
     return {
       success: false,
       error: "Ocurrió un error inesperado al crear el curso",

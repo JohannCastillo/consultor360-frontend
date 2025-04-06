@@ -7,7 +7,7 @@ import {
   MenuFoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Flex, Layout, Dropdown, Avatar, Skeleton } from "antd";
+import { Button, Flex, Layout, Dropdown, Avatar } from "antd";
 import SkeletonAvatar from "antd/es/skeleton/Avatar";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";

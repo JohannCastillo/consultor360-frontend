@@ -75,7 +75,7 @@ export const useColumns = (): TableProps<Curso>["columns"] => {
           },
         },
       ] as TableProps<Curso>["columns"],
-    []
+      []
   );
   return columns;
 };

@@ -13,7 +13,9 @@ export function useColumnTextSearch<T>(): {
     confirm: FilterDropdownProps["confirm"],
     clearFilters?: FilterDropdownProps["clearFilters"]
   ) => {
-    clearFilters && clearFilters();
+    if(clearFilters){
+      clearFilters();
+    }
     confirm();
   };
 
@@ -26,7 +28,12 @@ export function useColumnTextSearch<T>(): {
       close,
     }) => {
       return (
-        <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+        <div
+          style={{ padding: 8 }}
+          onKeyDown={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <Input
             ref={searchInput}
             placeholder={`Buscar por ${String(String(dataIndex))}`}

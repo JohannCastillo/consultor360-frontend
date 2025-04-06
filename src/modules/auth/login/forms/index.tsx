@@ -33,6 +33,7 @@ export default function LoginForm() {
           "No se pudo conectar con el servidor, intente de nuevo más tarde."
         );
     } catch (error) {
+      console.error(error);
       messageApi.error(
         "Error al intentar iniciar sesión, intente de nuevo más tarde."
       );
