@@ -16,8 +16,10 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Prueba técnica | Consultor 360",
-  description: "Prueba técnica Consultor 360",
+  title: {
+    default: "Consultor 360",
+    template: "%s | Consultor 360",
+  },
 };
 
 export default function RootLayout({

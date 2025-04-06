@@ -2,6 +2,11 @@ import AddCursoModal from "@/modules/cursos/modals/add-curso.modal";
 import CursoTableClient from "@/modules/cursos/table/client";
 import { Flex, Space } from "antd";
 import { BookFilled } from "@ant-design/icons";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Cursos"
+};
 
 export default async function CursosPage({
   searchParams,
