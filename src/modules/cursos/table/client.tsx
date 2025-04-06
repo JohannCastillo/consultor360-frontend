@@ -32,9 +32,10 @@ export default function CursoTableClient({
 
   return (
     <Table<Curso>
+      scroll={{ x: 768 }}
       columns={columns}
       dataSource={cursos}
-      loading={isLoading || isFetching}
+      loading={isLoading || isFetching || false}
       rowKey={"id"}
       onChange={(_, filter, __) => {
         handleFilterChange({ filter });

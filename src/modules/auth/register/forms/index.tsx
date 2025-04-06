@@ -29,7 +29,7 @@ export default function RegisterForm(props: FormProps) {
   };
 
   return (
-    <Form {...props} layout="vertical" onFinish={onFinish} disabled={isPending}>
+    <Form {...props} layout="vertical" onFinish={onFinish} disabled={isPending || false}>
       {registerFields.map((field) => {
         const { type, inputProps, ...fieldProps } = field;
         return (

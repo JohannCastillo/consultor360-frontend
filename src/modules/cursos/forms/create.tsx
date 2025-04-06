@@ -33,12 +33,6 @@ export default function AddCursoForm(props: FormProps) {
           </Form.Item>
         );
       })}
-
-      {/* <Form.Item label={null}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item> */}
     </Form>
   );
 }

@@ -8,7 +8,6 @@ import { useColumnTextSearch } from "@/hooks/table/use-column-text-search";
 export const useColumns = (): TableProps<Curso>["columns"] => {
   const { getColumnSearchProps } = useColumnTextSearch<Curso>();
 
-
   const columns = React.useMemo(
     () =>
       [
@@ -31,26 +30,22 @@ export const useColumns = (): TableProps<Curso>["columns"] => {
           title: "Descripción",
           dataIndex: "descripcion",
           key: "descripcion",
-          width: "20%",
           ...getColumnSearchProps("descripcion"),
         },
         {
           title: "Fecha de inicio",
           dataIndex: "fecha_inicio",
           key: "fecha_inicio",
-          width: "20%",
         },
         {
           title: "Fecha de fin",
           dataIndex: "fecha_fin",
           key: "fecha_fin",
-          width: "20%",
         },
         {
           title: "Estado",
           dataIndex: "activo",
           key: "activo",
-          width: "20%",
           filters: [
             {
               text: "Activo",
@@ -59,7 +54,7 @@ export const useColumns = (): TableProps<Curso>["columns"] => {
             {
               text: "Inactivo",
               value: "inactivo",
-            }
+            },
           ],
           render: (value: boolean) => (
             <Tag color={value ? "green" : "red"}>
