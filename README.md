@@ -2,14 +2,19 @@
   - [Requerimientos](#requerimientos)
   - [Variables de entorno](#variables-de-entorno)
   - [Instalación y ejecución](#instalación-y-ejecución)
+- [Funcionalidad](#funcionalidad)
 - [Tecnologías y herramientas utilizadas](#tecnologías-y-herramientas-utilizadas)
 - [Codificación con IA](#codificación-con-ia)
 
 
 
-El proyecto desplegado en Vercel se encuentra disponible en [https://consultor360-frontend.vercel.app/](https://consultor360-frontend.vercel.app/cursos)
+El proyecto desplegado en Vercel se encuentra disponible en [https://consultor360-frontend.vercel.app/](https://consultor360-frontend.vercel.app/cursos).
 
-> Nota: Si el fetching de cursos falla, se debe a que el backend en `Render` se encuentra detenido temporalmente por **inactividad**, debe esperar menos de 1 o 2 minutos recargando la página hasta que el mensaje de error desaparezca.  
+> [!NOTE]  
+> Si el fetching de cursos falla, se debe a que el backend en `Render` se encuentra detenido temporalmente por **inactividad**, debe esperar menos de 1 o 2 minutos recargando la página hasta que el mensaje de error en la ruta [/cursos](https://consultor360-frontend.vercel.app/cursos) desaparezca.  
+
+> [!NOTE]  
+> Para la codificación se consideró una estructura orientada a la escalabilidad por módulos y la reutilización de código.  
 
 # Instrucciones para instalar y ejecutar el proyecto frontend
 
@@ -57,6 +62,17 @@ docker compose up -d
 
  Una vez finalizada la ejecución, el servicio se encontrará disponible en [http://localhost:3000](http://localhost:3000).
 
+# Funcionalidad
+* El sistema permite gestión de Cursos (CRUD)
+- Creación (Solo usuarios autenticados)
+- Lectura (Todos los usuarios)
+- Actualización (Solo usuarios autenticados)
+- Eliminación (Solo usuarios autenticados)
+
+* Para registrarse ingrese [aquí](https://consultor360-frontend.vercel.app/register)
+* Para iniciar sesión ingrese [aqui](https://consultor360-frontend.vercel.app/login)
+
+  
 # Tecnologías y herramientas utilizadas
 - [Next.js 14](https://nextjs.org/)
 - [Ant Design](https://ant.design/)
