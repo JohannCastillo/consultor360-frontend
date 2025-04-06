@@ -17,7 +17,6 @@ export async function createUser(
     });
 
     const _data = await response.json();
-    console.log("registrro", _data);
     if (!response.ok) {
       return {
         success: false,

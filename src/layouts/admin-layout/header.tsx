@@ -53,8 +53,7 @@ export default function AdminLayoutHeader({
                   key: "logout",
                   label: (
                     <Button danger type="text" onClick={async () => {
-                      const res = await serverSignOut();
-                      console.log("respuesta api", res)
+                      await serverSignOut();
                       signOut()
                     }}>
                       <span>Cerrar sesión</span>
