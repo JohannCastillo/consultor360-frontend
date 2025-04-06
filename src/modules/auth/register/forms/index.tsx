@@ -7,6 +7,7 @@ import { CreateUserDTO } from "../../types";
 import { useCreateUser } from "../../queries";
 import { useRouter } from "next/navigation";
 import { useSonnerStore } from "@/stores/sonner.store";
+import { signIn } from "next-auth/react";
 
 export default function RegisterForm(props: FormProps) {
   const { mutateAsync, isPending } = useCreateUser();
@@ -16,7 +17,14 @@ export default function RegisterForm(props: FormProps) {
   const onFinish = async (values: CreateUserDTO) => {
     const res = await mutateAsync(values);
     if (res.success) {
-      console.log("registrado con éxito");
+      
+      signIn("credentials", {
+        username: values.username,
+        password: values.password,
+        redirect: false,
+        callbackUrl: "/",
+      });
+
       router.replace("/");
       return;
     }
